@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator anim;
+    private BoxCollider2D bc;
 
     //movement variables
     [Range(3, 10)]
@@ -21,12 +22,19 @@ public class PlayerController : MonoBehaviour
 
     private Transform groundCheck;
 
+    private Vector2 boxColliderOffset;
+    private Vector2 boxColliderFlippedOffset;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        bc = GetComponent<BoxCollider2D>();
+
+        boxColliderOffset = bc.offset;
+        boxColliderFlippedOffset = new Vector2(-boxColliderOffset.x, boxColliderOffset.y);
 
         if (jumpForce < 0) jumpForce = 5.0f;
 
@@ -53,6 +61,10 @@ public class PlayerController : MonoBehaviour
         //sprite flipping
         if (hInput != 0) sr.flipX = (hInput < 0);
         //if (hInput > 0 && sr.flipX || hInput < 0 && !sr.flipX) sr.flipX = !sr.flipX;
+
+        bc.offset = (sr.flipX) ? boxColliderFlippedOffset : boxColliderOffset;
+
+        //if (sr.flipX) bc.offset = boxColliderFlippedOffset; else bc.offset = boxColliderOffset;
 
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("speed", Mathf.Abs(hInput));

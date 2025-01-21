@@ -175,6 +175,22 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6794500684501361480, guid: 27a74a496d1c5ef4abf28dbd72e2c0f0, type: 3}
+      propertyPath: m_Size.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794500684501361480, guid: 27a74a496d1c5ef4abf28dbd72e2c0f0, type: 3}
+      propertyPath: m_Size.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794500684501361480, guid: 27a74a496d1c5ef4abf28dbd72e2c0f0, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794500684501361480, guid: 27a74a496d1c5ef4abf28dbd72e2c0f0, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.55
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -614,7 +630,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -5.1777, y: 0}
+  - {x: -5.0977, y: 0}
   - {x: 5.036663, y: 0}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
