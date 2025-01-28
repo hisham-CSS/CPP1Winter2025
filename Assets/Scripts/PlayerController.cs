@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
-[RequireComponent(typeof(GroundCheck))] 
+[RequireComponent(typeof(GroundCheck), typeof(Jump))] 
 public class PlayerController : MonoBehaviour
 {
     //component references
@@ -50,20 +50,14 @@ public class PlayerController : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(hInput * speed, rb.linearVelocity.y);
 
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    anim.SetTrigger("Fire");
-                }
+                if (Input.GetButtonDown("Fire1") && isGrounded) anim.SetTrigger("Fire");
+                if (Input.GetButtonDown("Fire1") && !isGrounded) anim.SetTrigger("JumpAttack");
             }
             else
             {
                 rb.linearVelocity = Vector2.zero;
             }
         }
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        
 
         //sprite flipping
         if (hInput != 0) sr.flipX = (hInput < 0);
@@ -82,5 +76,10 @@ public class PlayerController : MonoBehaviour
             if (rb.linearVelocity.y <= 0) isGrounded = gndChk.isGrounded();
         }
         else isGrounded = gndChk.isGrounded();
+    }
+
+    public void ResetRigidbody()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
     }
 }

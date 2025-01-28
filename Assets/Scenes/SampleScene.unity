@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5164156468877822588, guid: 27a74a496d1c5ef4abf28dbd72e2c0f0, type: 3}
+      propertyPath: jumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164156468877822588, guid: 27a74a496d1c5ef4abf28dbd72e2c0f0, type: 3}
+      propertyPath: jumpFallForce
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
