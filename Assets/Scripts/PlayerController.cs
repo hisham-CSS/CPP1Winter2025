@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
@@ -11,6 +14,31 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D bc;
     private GroundCheck gndChk;
 
+    private int maxLives = 10;
+    private int _lives = 5;
+    public int lives
+    {
+        get => _lives;
+        set
+        {
+            _lives = value;
+            if (_lives > maxLives) _lives = maxLives;
+
+            Debug.Log($"Player Controller lives has changed to {_lives}");
+        }
+    }
+
+    private int _score = 0;
+    public int score
+    {
+        get => _score;
+        set
+        {
+            _score = value;
+            Debug.Log($"Player controller score has changed to {_score}");
+        }
+    }
+
     //movement variables
     [Range(3, 10)]
     public float speed = 5.0f;
@@ -20,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 boxColliderOffset;
     private Vector2 boxColliderFlippedOffset;
+    private Coroutine speedChange = null;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -78,17 +107,20 @@ public class PlayerController : MonoBehaviour
         else isGrounded = gndChk.isGrounded();
     }
 
-    public void ResetRigidbody()
-    {
-        rb.bodyType = RigidbodyType2D.Dynamic;
-    }
+    public void ResetRigidbody() => rb.bodyType = RigidbodyType2D.Dynamic;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PowerUp"))
-        {
-            //do something
-        }
+        //Detect pickup
+        IPickup pickup = collision.gameObject.GetComponent<IPickup>();
+        if (pickup != null) pickup.Pickup(this);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Detect pickup
+        IPickup pickup = collision.GetComponent<IPickup>();
+        if (pickup != null) pickup.Pickup(this);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -99,5 +131,31 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         
+    }
+
+    
+
+    public void SpeedChange()
+    {
+        if (speedChange != null)
+        {
+            StopCoroutine(speedChange);
+            speed /= 2;
+        }
+    
+        speedChange = StartCoroutine(SpeedChangeCoroutine());
+    }
+
+    IEnumerator SpeedChangeCoroutine()
+    {
+        //do something immediately
+        speed *= 2;
+        Debug.Log($"Player Controller speed has changed to {speed}");
+
+        yield return new WaitForSeconds(5.0f);
+
+        //do something after 5 seconds
+        speed /= 2;
+        Debug.Log($"Player Controller speed has changed to {speed}");
     }
 }

@@ -47,9 +47,10 @@ GameObject:
   - component: {fileID: 5336691520063769155}
   - component: {fileID: 7782861224992977062}
   - component: {fileID: 5269308917037854638}
+  - component: {fileID: 5164156468877822588}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +118,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 4638078165498462608, guid: 54672e6e03bda964b804592e4f38e181, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.75, y: 1.4}
@@ -264,10 +265,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a1cdf71e7337c49a16cea6b92b9adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initShotVelocity: {x: 0, y: 0}
+  initShotVelocity: {x: 4, y: 4}
   spawnPointRight: {fileID: 3166510319697564948}
   spawnPointLeft: {fileID: 1736859645508006023}
   projectilePrefab: {fileID: 7424505781311273924, guid: 16387005966bcef4ca36e7c65dacb113, type: 3}
+--- !u!114 &5164156468877822588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687976243452719084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127f5fe4524f9b84bafa6f656ccfcea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpHeight: 3
+  jumpFallForce: 10
+  jumpCancelled: 0
 --- !u!1 &5343292258925823186
 GameObject:
   m_ObjectHideFlags: 0
