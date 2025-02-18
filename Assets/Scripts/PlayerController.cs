@@ -121,6 +121,14 @@ public class PlayerController : MonoBehaviour
         //Detect pickup
         IPickup pickup = collision.GetComponent<IPickup>();
         if (pickup != null) pickup.Pickup(this);
+
+        if (collision.CompareTag("Squish"))
+        {
+            collision.enabled = false;
+            collision.gameObject.GetComponentInParent<Enemy>().TakeDamage(9999, DamageType.JumpedOn);
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
