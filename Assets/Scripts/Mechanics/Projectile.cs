@@ -21,7 +21,17 @@ public class Projectile : MonoBehaviour
         if (gameObject.CompareTag("pProj"))
         {
             Enemy e = collision.gameObject.GetComponent<Enemy>();
-            if (e != null) e.TakeDamage(damage);
+            if (e != null)
+            {
+                e.TakeDamage(damage);
+                Destroy(gameObject);
+            } 
+        }
+
+        if (gameObject.CompareTag("eProj") && collision.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.lives--;
+            Destroy(gameObject);
         }
     }
 }

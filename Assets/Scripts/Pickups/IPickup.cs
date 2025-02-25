@@ -1,9 +1,9 @@
 public interface IPickup
 {
-    public void Pickup(PlayerController playerThatPickedUp);
+    public void Pickup();
 }
 
 public interface IInvPickup
 {
-    public void InvPickup(PlayerController playerController);
+    public void InvPickup();
 }

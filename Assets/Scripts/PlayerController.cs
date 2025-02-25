@@ -14,31 +14,6 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D bc;
     private GroundCheck gndChk;
 
-    private int maxLives = 10;
-    private int _lives = 5;
-    public int lives
-    {
-        get => _lives;
-        set
-        {
-            _lives = value;
-            if (_lives > maxLives) _lives = maxLives;
-
-            Debug.Log($"Player Controller lives has changed to {_lives}");
-        }
-    }
-
-    private int _score = 0;
-    public int score
-    {
-        get => _score;
-        set
-        {
-            _score = value;
-            Debug.Log($"Player controller score has changed to {_score}");
-        }
-    }
-
     //movement variables
     [Range(3, 10)]
     public float speed = 5.0f;
@@ -113,16 +88,16 @@ public class PlayerController : MonoBehaviour
     {
         //Detect pickup
         IPickup pickup = collision.gameObject.GetComponent<IPickup>();
-        if (pickup != null) pickup.Pickup(this);
+        if (pickup != null) pickup.Pickup();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Detect pickup
         IPickup pickup = collision.GetComponent<IPickup>();
-        if (pickup != null) pickup.Pickup(this);
+        if (pickup != null) pickup.Pickup();
 
-        if (collision.CompareTag("Squish"))
+        if ((rb.linearVelocityY < 0) && collision.CompareTag("Squish"))
         {
             collision.enabled = false;
             collision.gameObject.GetComponentInParent<Enemy>().TakeDamage(9999, DamageType.JumpedOn);

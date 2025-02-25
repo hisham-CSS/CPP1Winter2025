@@ -3,9 +3,9 @@ using UnityEngine;
 public class Score : MonoBehaviour, IPickup
 {
     public int scoreToAdd;
-    public void Pickup(PlayerController player)
+    public void Pickup()
     {
-        player.score += scoreToAdd;
+        GameManager.Instance.score += scoreToAdd;
         Destroy(gameObject);
     }
 }

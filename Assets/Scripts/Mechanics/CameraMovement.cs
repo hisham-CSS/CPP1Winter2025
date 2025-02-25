@@ -5,15 +5,13 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float minXPos;
     [SerializeField] private float maxXPos;
 
-    public Transform playerRef;
-
     // Update is called once per frame
     void Update()
     {
-        if (!playerRef) return;
+        if (!GameManager.Instance.PlayerInstance) return;
 
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(playerRef.position.x, minXPos, maxXPos);
+        pos.x = Mathf.Clamp(GameManager.Instance.PlayerInstance.gameObject.transform.position.x, minXPos, maxXPos);
         transform.position = pos;
     }
 }

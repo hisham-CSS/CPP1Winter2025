@@ -3,9 +3,9 @@ using UnityEngine;
 public class Powerup : MonoBehaviour, IPickup
 {
     Rigidbody2D rb;
-    public void Pickup(PlayerController player)
+    public void Pickup()
     {
-        player.SpeedChange();
+        GameManager.Instance.PlayerInstance.SpeedChange();
         Destroy(gameObject);
     }
 
