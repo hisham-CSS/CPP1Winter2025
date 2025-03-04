@@ -1,11 +1,15 @@
+using System;
 using UnityEngine;
 
 public class TurretEnemy : Enemy
 {
     [SerializeField] private float distThreshold = 5;
     [SerializeField] private float projectileFireRate = 2.0f;
-    //[SerializeField] private Transform playerTransform;
+    
+    private Transform playerTransform;
     private float timeSinceLastFire = 0;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
@@ -17,18 +21,30 @@ public class TurretEnemy : Enemy
 
         if (distThreshold <= 0)
             distThreshold = 5;
+
     }
+
+    private void OnEnable() 
+    {
+        GameManager.Instance.OnPlayerSpawned += OnPlayerSpawnedCallback;   
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPlayerSpawned -= OnPlayerSpawnedCallback;
+    }
+
+    private void OnPlayerSpawnedCallback(PlayerController controller) => playerTransform = controller.transform;
 
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.Instance.PlayerInstance) return;
+        if (!playerTransform) return;
 
         AnimatorClipInfo[] curPlayingClips = anim.GetCurrentAnimatorClipInfo(0);
 
-        sr.flipX = (transform.position.x > GameManager.Instance.PlayerInstance.gameObject.transform.position.x);
+        sr.flipX = (transform.position.x > playerTransform.position.x);
 
-        CheckDistance(Mathf.Abs(GameManager.Instance.PlayerInstance.gameObject.transform.position.x - transform.position.x), curPlayingClips[0]); 
+        CheckDistance(Mathf.Abs(playerTransform.position.x - transform.position.x), curPlayingClips[0]); 
     }
 
     void CheckDistance(float distance, AnimatorClipInfo curClip)

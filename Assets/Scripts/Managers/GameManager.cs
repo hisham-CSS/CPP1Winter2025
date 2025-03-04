@@ -1,10 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
+[DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
+    public event Action<PlayerController> OnPlayerSpawned;
+    public UnityEvent<int> OnLifeValueChanged;
 
     #region GAME PROPERTIES
     [SerializeField] private int maxLives = 10;
@@ -23,8 +28,10 @@ public class GameManager : MonoBehaviour
             if (_lives > value) Respawn();
 
             _lives = value;
-            
+
             if (_lives > maxLives) _lives = maxLives;
+
+            OnLifeValueChanged?.Invoke(_lives);
 
             Debug.Log($"{gameObject.name} lives has changed to {_lives}");
         }
@@ -93,7 +100,8 @@ public class GameManager : MonoBehaviour
     public void InstantiatePlayer(Transform spawnLocation)
     {
         _playerInstance = Instantiate(playerPrefab, spawnLocation.position, Quaternion.identity);
-        currentCheckpoint = spawnLocation;
+        currentCheckpoint = spawnLocation;        
+        OnPlayerSpawned?.Invoke(_playerInstance);
     }
 
     public void UpdateCheckpoint(Transform updatedCheckpoint)
