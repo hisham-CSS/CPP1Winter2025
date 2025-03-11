@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-[DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
     public event Action<PlayerController> OnPlayerSpawned;
-    public UnityEvent<int> OnLifeValueChanged;
+    public event Action<int> OnLifeValueChanged;
 
     #region GAME PROPERTIES
     [SerializeField] private int maxLives = 10;
@@ -53,8 +52,12 @@ public class GameManager : MonoBehaviour
     public PlayerController PlayerInstance => _playerInstance;
     #endregion
 
+
+    private MenuController currentMenuController;
     private Transform currentCheckpoint;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public void SetMenuController(MenuController newMenuController) => currentMenuController = newMenuController;
+    
     void Awake()
     {
         if (!_instance)
@@ -84,6 +87,17 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             score++;
+
+        if (SceneManager.GetActiveScene().name.Contains("Level"))
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                if (currentMenuController.CurrentState.state == MenuStates.InGame)
+                    currentMenuController.SetActiveState(MenuStates.Pause);
+                else
+                    currentMenuController.JumpBack();
+            }
+        }
     }
 
     void GameOver()

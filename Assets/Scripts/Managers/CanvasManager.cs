@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-
+[Obsolete]
 public class CanvasManager : MonoBehaviour
 {
     [Header("Buttons")]
@@ -30,8 +31,6 @@ public class CanvasManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-
         if (startBtn) startBtn.onClick.AddListener(() => SceneManager.LoadScene("Level"));
         if (settingsBtn) settingsBtn.onClick.AddListener(() => SetMenus(settingsMenu, mainMenu));
         if (backBtn) backBtn.onClick.AddListener(() => SetMenus(mainMenu, settingsMenu));
@@ -48,7 +47,7 @@ public class CanvasManager : MonoBehaviour
 
         if (livesText)
         {
-            GameManager.Instance.OnLifeValueChanged.AddListener(OnLifeValueChanged);
+            GameManager.Instance.OnLifeValueChanged += OnLifeValueChanged;
             OnLifeValueChanged(GameManager.Instance.lives);
         }
     }
@@ -69,7 +68,7 @@ public class CanvasManager : MonoBehaviour
         if (quitBtn) quitBtn.onClick.RemoveAllListeners();
         if (resumeBtn) resumeBtn.onClick.RemoveAllListeners();
         if (mainMenuBtn) mainMenuBtn.onClick.RemoveAllListeners();
-        if (livesText) GameManager.Instance.OnLifeValueChanged.RemoveAllListeners();
+        if (livesText) GameManager.Instance.OnLifeValueChanged -= OnLifeValueChanged;
     }
 
     private void SetMenus(GameObject menuToActivate, GameObject menuToDeactivate)

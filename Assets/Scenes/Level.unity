@@ -346,13 +346,14 @@ GameObject:
   - component: {fileID: 414989009}
   - component: {fileID: 414989008}
   - component: {fileID: 414989007}
+  - component: {fileID: 414989010}
   m_Layer: 5
   m_Name: InGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &414989006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -436,6 +437,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &414989010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414989005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b47368786c4a448999238b70d44a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  livesText: {fileID: 557558398}
 --- !u!1001 &418758941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1532,21 +1547,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1112390027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 270927213fdcdac49892d3635d027a19, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e990218080fdd14fae15e2f6cc42eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startBtn: {fileID: 0}
-  settingsBtn: {fileID: 0}
-  backBtn: {fileID: 0}
-  quitBtn: {fileID: 976356426}
-  resumeBtn: {fileID: 769785676}
-  mainMenuBtn: {fileID: 1551273997}
-  mainMenu: {fileID: 0}
-  settingsMenu: {fileID: 0}
-  pauseMenu: {fileID: 1713949043}
-  volSliderText: {fileID: 0}
-  livesText: {fileID: 557558398}
-  volSlider: {fileID: 0}
+  allMenus: []
+  initState: 3
 --- !u!1 &1517843788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,6 +1889,7 @@ GameObject:
   - component: {fileID: 1713949046}
   - component: {fileID: 1713949045}
   - component: {fileID: 1713949044}
+  - component: {fileID: 1713949048}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -1976,6 +1982,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1713949048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713949043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cec59b5aada9f4a9202be528758ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  quitBtn: {fileID: 976356426}
+  resumeBtn: {fileID: 769785676}
+  mainMenuBtn: {fileID: 1551273997}
 --- !u!1 &1717846097
 GameObject:
   m_ObjectHideFlags: 0

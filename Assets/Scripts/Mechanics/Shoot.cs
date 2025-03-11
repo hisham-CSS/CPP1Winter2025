@@ -39,5 +39,7 @@ public class Shoot : MonoBehaviour
             curProjectile = Instantiate(projectilePrefab, spawnPointLeft.position, spawnPointLeft.rotation);
             curProjectile.SetVelocity(new Vector2(-initShotVelocity.x, initShotVelocity.y));
         }
+
+        //Debug.LogError("Fireball");
     }
 }

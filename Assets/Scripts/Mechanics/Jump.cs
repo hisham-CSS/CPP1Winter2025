@@ -28,6 +28,8 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale <= 0) return;
+
         if (pc.isGrounded) jumpCancelled = false;
 
         if (Input.GetButton("Jump"))
