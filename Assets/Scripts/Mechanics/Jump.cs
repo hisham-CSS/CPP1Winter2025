@@ -4,9 +4,11 @@ public class Jump : MonoBehaviour
 {
     Rigidbody2D rb;
     PlayerController pc;
+    AudioSource audioSource;
 
     [SerializeField, Range(2, 5)] private float jumpHeight = 5;
     [SerializeField, Range(1, 20)] private float jumpFallForce = 20;
+    [SerializeField] private AudioClip jumpSound;
 
     float timeHeld;
     float maxHoldTime = 0.5f;
@@ -21,6 +23,7 @@ public class Jump : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerController>();
+        audioSource = GetComponent<AudioSource>();
 
         calculatedJumpForce = Mathf.Sqrt(jumpHeight * -2 * (Physics2D.gravity.y * rb.gravityScale));
     }
@@ -51,6 +54,7 @@ public class Jump : MonoBehaviour
         {
             if (pc.isGrounded)
             {
+                audioSource.PlayOneShot(jumpSound);
                 rb.linearVelocity = Vector2.zero;
                 rb.AddForce(new Vector2(0, calculatedJumpForce), ForceMode2D.Impulse);
             }

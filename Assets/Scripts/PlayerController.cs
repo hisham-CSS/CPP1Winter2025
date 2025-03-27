@@ -2,9 +2,10 @@ using System.Collections;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
-[RequireComponent(typeof(GroundCheck), typeof(Jump))] 
+[RequireComponent(typeof(GroundCheck), typeof(Jump), typeof(AudioSource))] 
 public class PlayerController : MonoBehaviour
 {
     //component references
@@ -25,6 +26,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 boxColliderFlippedOffset;
     private Coroutine speedChange = null;
 
+    //Audio Clips
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip stompSound;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,6 +41,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         bc = GetComponent<BoxCollider2D>();
         gndChk = GetComponent<GroundCheck>();
+        audioSource = GetComponent<AudioSource>();
 
         boxColliderOffset = bc.offset;
         boxColliderFlippedOffset = new Vector2(-boxColliderOffset.x, boxColliderOffset.y);
@@ -103,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
         if ((rb.linearVelocityY < 0) && collision.CompareTag("Squish"))
         {
+            audioSource.PlayOneShot(stompSound);
             collision.enabled = false;
             collision.gameObject.GetComponentInParent<Enemy>().TakeDamage(9999, DamageType.JumpedOn);
             rb.linearVelocity = Vector2.zero;
